@@ -39,6 +39,60 @@
     <INPUT type="hidden" name="KOTAE"  value="4">
     <INPUT type="hidden" name="KOTAE"  value="6π">
     <INPUT type="hidden" name="KOTAE"  value="33π">
+
+    <p id="p2">
+
+    
+    <script>
+        function AnswerCheck(formp){
+    // 初期化
+    OkColor = "#FFB0B0";    // 正解の色
+    NgColor = "#B0B0FF";    // 不正解の色
+    tensu = 0;    // 点数用
+    seikai_data = "";    // 正解データ作成用
+    KAISETU_data= "";   //解説データ
+    if(typeof(formp.HAITEN) == "undefined")    // 配点なし=1点
+        haiten = 1;
+    else
+        haiten = parseInt(formp.HAITEN.value);
+    // 解答チェック
+    for(n = 0; n < formp.KAITO.length; ++n){    // 問題（解答入力欄）数分繰り返す
+        if(formp.KAITO[n].value == formp.KOTAE[n].value){  // 正誤の判定
+            tensu = tensu + haiten;                          // 得点加算
+            formp.KAITO[n].style.backgroundColor = OkColor;  // 正解の色
+        }else
+            formp.KAITO[n].style.backgroundColor = NgColor;  // 不正解の色
+        seikai_data = seikai_data + "(" + (n+1) + ") ";          // 正解データ作成 番号
+        seikai_data = seikai_data + formp.KOTAE[n].value + " ";  // 正解データ作成 正解
+    }
+
+    // 得点・正解表示
+    if(typeof(formp.TOKUTEN) != "undefined")  // 得点欄あり
+        formp.TOKUTEN.value = tensu;              // 得点表示
+    if(typeof(formp.SEIKAI) != "undefined")   // 正解表示欄あり
+        formp.SEIKAI.value = seikai_data;         // 正解表示 
+}
+    </script>  
+
+            不正解の場合はこちらをご覧ください。<BR>
+            解説つくっている段階です！
+            <BR>
+            </p>
+            <input type="button" value="解説"
+            onclick="clickBtn2(this.form)" />
+                        
+            <script>//初期表示は非表示
+            document.getElementById("p2").style.visibility ="hidden";
+                        
+            function clickBtn2(){
+                  const p2 = document.getElementById("p2");
+                  if(p2.style.visibility=="visible"){
+                        p2.style.visibility ="hidden";
+                  }else{// visibleで表示
+                        p2.style.visibility ="visible";
+                  }
+             }
+             </script>
     </FORM>
     </BODY>
     </HTML>
